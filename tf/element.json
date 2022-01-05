@@ -1,0 +1,212 @@
+{
+  "@import": "./element.php",
+    "name": "tf",
+    "title": "Type Finder",
+    "group": "lalit",
+    "icon": "${url:images/icon.svg}",
+    "iconSmall": "${url:images/iconSmall.svg}",
+    "element": true,
+    "container": true,
+    "width": 500,
+    "defaults": {
+      "types_count": 2,
+      "introduction_button_caption": "Start"
+    },
+    "templates": {
+        "render": "./templates/template.php",
+        "content": "./templates/content.php"
+    },
+    "fields": {
+        "types_count": {
+          "label": "Anzahl Typen",
+          "type": "range",
+          "attrs": {
+            "min": 2,
+            "max": 4,
+            "step": 1
+          }
+        },
+        "introduction_title": {
+          "label": "Titel",
+          "type": "text"
+        },
+        "introduction_description": {
+          "label": "Text",
+          "type": "editor",
+          "attrs": {
+            "debounce": 500
+          }
+        },
+        "introduction_image": {
+          "label": "Bild",
+          "type": "image"
+        },
+        "introduction_button_caption": {
+          "label": "Button Text",
+          "type": "text"
+        },
+        "introduction_questions_title": {
+          "label": "Fragen Einleitung Titel",
+          "type": "text"
+        },
+          "introduction_questions_text": {
+              "label": "Fragen Einleitung Text",
+              "type": "editor"
+        },
+        "type_a_title": {
+          "label": "Titel",
+          "type": "text"
+        },
+        "type_a_description": {
+          "label": "Beschreibung",
+          "type": "editor",
+          "attrs": {
+            "debounce": 500
+          }
+        },
+        "type_a_image": {
+          "label": "Bild",
+          "type": "image"
+        },
+        "type_b_title": {
+          "label": "Titel",
+          "type": "text"
+        },
+        "type_b_description": {
+          "label": "Beschreibung",
+          "type": "editor",
+          "attrs": {
+            "debounce": 500
+          }
+        },
+        "type_b_image": {
+          "label": "Bild",
+          "type": "image"
+        },
+        "type_c_title": {
+          "label": "Titel",
+          "type": "text",
+          "show": "types_count > 2"
+        },
+        "type_c_description": {
+          "label": "Beschreibung",
+          "type": "editor",
+          "show": "types_count > 2",
+          "attrs": {
+            "debounce": 500
+          }
+        },
+        "type_c_image": {
+          "label": "Bild",
+          "type": "image",
+          "show": "types_count > 2"
+        },
+        "type_d_title": {
+          "label": "Titel",
+          "type": "text",
+          "show": "types_count > 3"
+        },
+        "type_d_description": {
+          "label": "Beschreibung",
+          "type": "editor",
+          "show": "types_count > 3",
+          "attrs": {
+            "debounce": 500
+          }
+        },
+        "type_d_image": {
+          "label": "Bild",
+          "type": "image",
+          "show": "types_count > 3"
+        },
+        "content": {
+          "label": "Fragen",
+          "type": "content-items",
+          "item": "tf_item"
+        }
+    },
+    "fieldset": {
+        "default": {
+            "type": "tabs",
+            "fields": [
+              {
+                "title": "Intro",
+                "fields": [
+                  {
+                    "label": "Einleitung",
+                    "type": "group",
+                    "divider": true,
+                    "fields": [
+                      "introduction_title",
+                      "introduction_description",
+                      "introduction_image",
+                      "introduction_button_caption",
+                      "introduction_questions_title",
+                      "introduction_questions_text"
+                    ]
+                  }
+                ]
+              },
+                {
+                    "title": "Typen",
+                    "fields": [
+                        {
+                          "label": "Type A",
+                          "type": "group",
+                          "divider": true,
+                          "fields": [
+                            "type_a_title",
+                            "type_a_description",
+                            "type_a_image"
+                          ]
+                        },
+                          {
+                            "label": "Type B",
+                            "type": "group",
+                            "divider": true,
+                            "fields": [
+                              "type_b_title",
+                              "type_b_description",
+                              "type_b_image"
+                            ]
+                          },
+                            {
+                              "label": "Type C",
+                              "type": "group",
+                              "divider": true,
+                              "fields": [
+                                "type_c_title",
+                                "type_c_description",
+                                "type_c_image"
+                              ],
+                              "show": "types_count > 2"
+                            },
+                              {
+                                "label": "Type D",
+                                "type": "group",
+                                "divider": true,
+                                "fields": [
+                                  "type_d_title",
+                                  "type_d_description",
+                                  "type_d_image"
+                                ],
+                                "show": "types_count > 3"
+                              }
+                    ]
+                },
+                {
+                  "title": "Fragen",
+                  "fields": [
+                    "content"
+                  ]
+                },
+                {
+                    "title": "Einstellungen",
+                    "fields": [
+                      "types_count"
+                    ]
+                }
+            ]
+        }
+    }
+}

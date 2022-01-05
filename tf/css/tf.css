@@ -1,0 +1,13 @@
+#tf ul.answers {
+  list-style: none;
+}
+
+#tf ul.answers.images li {
+  margin: 10px;
+}
+
+#tf ul.answers.images img {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+}

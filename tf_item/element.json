@@ -1,0 +1,75 @@
+{
+    "name": "tf_item",
+    "title": "Item",
+    "width": 500,
+    "templates": {
+        "render": "./templates/template.php",
+        "content": "./templates/content.php"
+    },
+    "fields": {
+        "title": {
+            "label": "Fragentext",
+            "source": true
+        },
+        "meta": {
+            "label": "Zusatzinfo / PopUp",
+            "source": true
+        },
+        "content": {
+            "label": "Fragen und Bewertung",
+            "type": "textarea",
+            "source": true
+        },
+        "weighting": {
+          "label": "Gewichtung",
+          "type": "text",
+          "source": true
+        },
+        "image1": {
+          "label": "Bild 1",
+          "type": "image",
+          "source": true,
+          "show": "question_or_images == 1"
+        },
+        "image2": {
+          "label": "Bild 2",
+          "type": "image",
+          "source": true,
+          "show": "question_or_images == 1"
+        },
+        "question_or_images": {
+          "label": "Textfrage oder Bildfrage?",
+          "type": "select",
+          "default": 0,
+          "options": {
+            "Question": 0,
+            "Images": 1
+          }
+        }
+
+    },
+    "fieldset": {
+        "default": {
+            "type": "tabs",
+            "fields": [
+                {
+                    "title": "Frage",
+                    "fields": [
+                        "title",
+                        "meta",
+                        "weighting",
+                        "content",
+                        "image1",
+                        "image2"
+                    ]
+                },
+                {
+                  "title": "Einstellungen",
+                  "fields": [
+                    "question_or_images"
+                  ]
+                }
+            ]
+        }
+    }
+}
