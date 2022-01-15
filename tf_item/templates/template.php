@@ -2,21 +2,18 @@
       <a class="uk-accordion-title" href="#"><?= $props['title'] ?></a>
       <div class="uk-accordion-content">
           <?php
-            $answers = explode(',', $props['content']);
-
-            if(count($answers)) {
+            if(count($children)) {
               echo '<ul class="answers">';
-              foreach ($answers as $key => $answer) {
-                $values = explode('|', $answer);
-                $text = array_key_exists(0, $values) ? trim($values[0]) : 'Leer / Fehler';
-                $a = array_key_exists(1, $values) ? intval($values[1]) : 0;
-                $b = array_key_exists(2, $values) ? intval($values[2]) : 0;
-                $c = array_key_exists(3, $values) ? intval($values[3]) : 0;
-                $d = array_key_exists(4, $values) ? intval($values[4]) : 0;
+              foreach ($children as $key => $answer) {
+                $text = $answer->props['title'];
+                $a = intval($answer->props['pointsA']);
+                $b = intval($answer->props['pointsB']);
+                $c = intval($answer->props['pointsC']);
+                $d = intval($answer->props['pointsD']);
                 $id = 'question_' . $props['key'] . '_answer_' . $key;
                 $name = 'question_' . $props['key'];
 
-                echo '<li><input type="radio" onclick="updateQuestion('.$props['key'].', '.$props['weighting'].', '.$a.', '.$b.', '.$c.', '.$d.')" name="'.$name.'" id="'.$id.'" /><label for="'.$id.'">'.$text.'</label></li>';
+                echo '<li><input type="radio" onclick="updateQuestion('.$props['key'].', '.$a.', '.$b.', '.$c.', '.$d.')" name="'.$name.'" id="'.$id.'" /><label for="'.$id.'">'.$text.'</label></li>';
               }
               echo '</ul>';
             } else {
@@ -29,21 +26,18 @@
       <a class="uk-accordion-title" href="#"><?= $props['title'] ?></a>
       <div class="uk-accordion-content">
         <?php
-          $answers = explode(',', $props['content']);
-
-          if(count($answers)) {
+          if(count($children)) {
             echo '<ul class="answers images">';
-            foreach ($answers as $key => $answer) {
-              $values = explode('|', $answer);
-              $text = array_key_exists(0, $values) ? trim($values[0]) : 'Leer / Fehler';
-              $a = array_key_exists(1, $values) ? intval($values[1]) : 0;
-              $b = array_key_exists(2, $values) ? intval($values[2]) : 0;
-              $c = array_key_exists(3, $values) ? intval($values[3]) : 0;
-              $d = array_key_exists(4, $values) ? intval($values[4]) : 0;
+            foreach ($children as $key => $answer) {
+              $text = $answer->props['title'];
+              $a = intval($answer->props['pointsA']);
+              $b = intval($answer->props['pointsB']);
+              $c = intval($answer->props['pointsC']);
+              $d = intval($answer->props['pointsD']);
               $id = 'question_' . $props['key'] . '_answer_' . $key;
               $name = 'question_' . $props['key'];
 
-              echo '<li><input type="radio" value="" onclick="updateQuestion('.$props['key'].', '.$props['weighting'].', '.$a.', '.$b.', '.$c.', '.$d.')" name="'.$name.'" id="'.$id.'" /><label for="'.$id.'"><img src="'.$props['image'.($key+1)].'" alt="'.$props['title'].'" /></label></li>';
+              echo '<li><input type="radio" value="" onclick="updateQuestion('.$props['key'].', '.$a.', '.$b.', '.$c.', '.$d.')" name="'.$name.'" id="'.$id.'" /><label for="'.$id.'"><img src="'.$answer->props['image'].'" alt="'.$props['title'].'" /></label></li>';
             }
             echo '</ul>';
           } else {

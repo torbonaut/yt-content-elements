@@ -1,0 +1,63 @@
+{
+    "name": "tf_answer",
+    "title": "Item",
+    "width": 500,
+    "templates": {
+        "render": "./templates/template.php",
+        "content": "./templates/content.php"
+    },
+    "fields": {
+        "title": {
+            "label": "Antworttext (Textfragenmodus)",
+            "source": true
+        },
+        "pointsA": {
+          "label": "Punkte A",
+          "type": "text",
+          "source": true
+        },
+        "pointsB": {
+          "label": "Punkte B",
+          "type": "text",
+          "source": true
+        },
+        "pointsC": {
+          "label": "Punkte C",
+          "type": "text",
+          "source": true
+        },
+        "pointsD": {
+          "label": "Punkte D",
+          "type": "text",
+          "source": true
+        },
+        "image": {
+          "label": "Bild (Bildfragenmodus)",
+          "type": "image",
+          "source": true
+        }
+    },
+    "fieldset": {
+        "default": {
+            "type": "tabs",
+            "fields": [
+                {
+                    "title": "Antwort",
+                    "fields": [
+                        "title",
+                        "pointsA",
+                        "pointsB",
+                        "pointsC",
+                        "pointsD",
+                        "image"
+                    ]
+                },
+                {
+                  "title": "Einstellungen",
+                  "fields": [
+                  ]
+                }
+            ]
+        }
+    }
+}

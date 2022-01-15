@@ -2,6 +2,7 @@
     "name": "tf_item",
     "title": "Item",
     "width": 500,
+    "container": true,
     "templates": {
         "render": "./templates/template.php",
         "content": "./templates/content.php"
@@ -15,27 +16,10 @@
             "label": "Zusatzinfo / PopUp",
             "source": true
         },
-        "content": {
-            "label": "Fragen und Bewertung",
-            "type": "textarea",
-            "source": true
-        },
-        "weighting": {
-          "label": "Gewichtung",
+        "points": {
+          "label": "Punkte",
           "type": "text",
           "source": true
-        },
-        "image1": {
-          "label": "Bild 1",
-          "type": "image",
-          "source": true,
-          "show": "question_or_images == 1"
-        },
-        "image2": {
-          "label": "Bild 2",
-          "type": "image",
-          "source": true,
-          "show": "question_or_images == 1"
         },
         "question_or_images": {
           "label": "Textfrage oder Bildfrage?",
@@ -45,7 +29,13 @@
             "Question": 0,
             "Images": 1
           }
-        }
+      },
+      "answers": {
+          "label": "Antworten",
+          "type": "content-items",
+          "item": "tf_answer",
+          "source": true
+      }
 
     },
     "fieldset": {
@@ -57,10 +47,8 @@
                     "fields": [
                         "title",
                         "meta",
-                        "weighting",
-                        "content",
-                        "image1",
-                        "image2"
+                        "points",
+                        "answers"
                     ]
                 },
                 {
