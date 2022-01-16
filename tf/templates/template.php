@@ -31,9 +31,12 @@
                     <h3><?= $props['introduction_questions_title'] ?></h3>
                     <div><?= $props['introduction_questions_text'] ?></div>
                     <!-- tf questions -->
-                    <ul uk-accordion>
+                    <ul uk-accordion id="questions">
                         <?php foreach ($children as $key => $child) : ?>
-                        <?php $child->props['key'] = $key; ?>
+                        <?php
+                            $child->props['key'] = $key;
+                            $child->props['total'] = count($children);
+                        ?>
                         <li<?php if($key == 0) { echo ' class="uk-open"';} ?>><?= $builder->render($child, ['element' => $props]) ?></li>
                         <?php endforeach ?>
                     </ul>
@@ -188,6 +191,16 @@
   // console.log('typesCount', typesCount);
 
   function updateQuestion(question = 0, a = 0, b = 0, c = 0, d = 0) {
+    button = document.getElementById('nextButton-' + question );
+
+    if(questionsCount == (question+1)) {
+        if(questions.size == questionsCount) {
+            button.disabled = false;    
+        }
+    } else {
+        button.disabled = false;
+    }
+
     questions.set(question, [a, b, c, d]);
     calculate();
     render();
@@ -223,6 +236,15 @@
         pD = Math.round(typeD*100/totalPoints);
         document.getElementById('percentage_d').textContent = pD;
     }
+  }
+
+  function nextQuestion(i) {
+      var element = document.getElementById('questions');
+        UIkit.accordion(element).toggle(i+1, true);
+  }
+
+  function result() {
+      alert('Ergebnis folgt ...');
   }
 
 </script>

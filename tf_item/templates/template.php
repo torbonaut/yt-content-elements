@@ -21,6 +21,11 @@
             }
           ?>
           <a uk-toggle="target: #item-info-<?= $props['key'] ?>" uk-icon="question"></a>
+          <?php if($props['key'] == ($props['total'] - 1)) { ?>
+              <button id="nextButton-<?= $props['key'] ?>" disabled class="uk-button uk-button-primary" onclick="result()">Ergebnis</button>
+          <?php } else { ?>
+              <button id="nextButton-<?= $props['key'] ?>" disabled class="uk-button uk-button-primary" onclick="nextQuestion(<?= $props['key'] ?>)">weiter</button>
+          <?php } ?>
       </div>
 <?php } else { ?>
       <a class="uk-accordion-title" href="#"><?= $props['title'] ?></a>
@@ -45,5 +50,10 @@
           }
           ?>
           <a uk-toggle="target: #item-info-<?= $props['key'] ?>" uk-icon="question"></a>
+          <?php if($props['key'] == ($props['total'] - 1)) { ?>
+              <button id="nextButton-<?= $props['key'] ?>" disabled class="uk-button uk-button-primary" onclick="result()">Ergebnis</button>
+          <?php } else { ?>
+              <button id="nextButton-<?= $props['key'] ?>" disabled class="uk-button uk-button-primary" onclick="nextQuestion(<?= $props['key'] ?>)">weiter</button>
+          <?php } ?>
       </div>
 <?php } ?>
