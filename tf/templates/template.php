@@ -186,24 +186,20 @@
   var typeC = 0;
   var typeD = 0;
 
-  // console.log('question count', questionsCount);
-  // console.log('totalPoints', totalPoints);
-  // console.log('typesCount', typesCount);
-
   function updateQuestion(question = 0, a = 0, b = 0, c = 0, d = 0) {
+      questions.set(question, [a, b, c, d]);
+      calculate();
+      render();
+
     button = document.getElementById('nextButton-' + question );
 
     if(questionsCount == (question+1)) {
         if(questions.size == questionsCount) {
-            button.disabled = false;    
+            button.disabled = false;
         }
     } else {
         button.disabled = false;
     }
-
-    questions.set(question, [a, b, c, d]);
-    calculate();
-    render();
   }
 
   function calculate() {
@@ -212,7 +208,6 @@
     typeC = 0;
     typeD = 0;
     questions.forEach((item, i) => {
-        //console.log('item', item);
         if(item[0] != 0) { typeA = typeA + item[0]; }
         if(item[1] != 0) { typeB = typeB + item[1]; }
         if(item[2] != 0) { typeC = typeC + item[2]; }
@@ -244,7 +239,20 @@
   }
 
   function result() {
-      alert('Ergebnis folgt ...');
+      var linkTypeA = '<?= $props['type_a_result_link'] ?>';
+      var linkTypeB = '<?= $props['type_b_result_link'] ?>';
+      var linkTypeC = '<?= $props['type_c_result_link'] ?>';
+      var linkTypeD = '<?= $props['type_d_result_link'] ?>';
+
+      var url_params = '&a=' + typeA + '&b=' + typeB + '&c=' + typeC + '&d=' + typeD + '&total=' + totalPoints + '&types=' + typesCount;
+
+      var max = Math.max(typeA, typeB, typeC, typeD);
+      switch(max) {
+          case typeA: window.location.href = linkTypeA + url_params; break;
+          case typeB: window.location.href = linkTypeB + url_params; break;
+          case typeC: window.location.href = linkTypeC + url_params; break;
+          case typeD: window.location.href = linkTypeD + url_params; break;
+      }
   }
 
 </script>
