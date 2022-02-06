@@ -34,6 +34,7 @@
                     <ul uk-accordion id="questions">
                         <?php foreach ($children as $key => $child) : ?>
                         <?php
+                            // add current key and total count to each child
                             $child->props['key'] = $key;
                             $child->props['total'] = count($children);
                         ?>
@@ -195,20 +196,58 @@
   var typeC = 0;
   var typeD = 0;
 
+  function updateTextQuestion(question = 0, a = 0, b = 0, c = 0, d = 0) {
+      updateQuestion(question, a, b, c, d);
+
+      // enable next or result button
+      button = document.getElementById('nextButton-' + question );
+
+      if(questionsCount == (question+1)) {
+          if(questions.size == questionsCount) {
+              button.disabled = false;
+          }
+      } else {
+          button.disabled = false;
+      }
+  }
+
+  function updateImageQuestion(question, answer, maxPoints) {
+      var selectedImages = Array.from(document.getElementsByClassName('selected question_' + question));
+
+      // select current clicked image if < maxPoints or remove selection if it was already selected
+      var image = document.getElementById('question_' + question + '_answer_' + answer);
+      if(image.classList.contains('selected')) {
+          image.classList.remove('selected');
+      } else if(selectedImages.length < maxPoints) {
+        image.classList.add('selected');
+      }
+
+      // count type points and update percentages
+      selectedImages = Array.from(document.getElementsByClassName('selected question_' + question));
+      var a = 0, b = 0, c = 0, d = 0;
+      selectedImages.forEach((item, i) => {
+          if(parseInt(item.dataset.typea) > 0) { a++; }
+          if(parseInt(item.dataset.typeb) > 0) { b++; }
+          if(parseInt(item.dataset.typec) > 0) { c++; }
+          if(parseInt(item.dataset.typed) > 0) { d++; }
+      });
+
+      updateQuestion(question, a, b, c, d);
+
+      // enable next or result button
+      button = document.getElementById('nextButton-' + question );
+
+      if(selectedImages.length == maxPoints) {
+          button.disabled = false;
+      } else {
+          button.disabled = true;
+      }
+  }
+
   function updateQuestion(question = 0, a = 0, b = 0, c = 0, d = 0) {
       questions.set(question, [a, b, c, d]);
       calculate();
       render();
-
-    button = document.getElementById('nextButton-' + question );
-
-    if(questionsCount == (question+1)) {
-        if(questions.size == questionsCount) {
-            button.disabled = false;
-        }
-    } else {
-        button.disabled = false;
-    }
   }
 
   function calculate() {
@@ -245,30 +284,6 @@
   function nextQuestion(i) {
       var element = document.getElementById('questions');
         UIkit.accordion(element).toggle(i+1, true);
-  }
-
-  function selectImage(question, answer, maxPoints) {
-      var selectedImages = Array.from(document.getElementsByClassName('selected question_' + question));
-
-      // select current clicked image if < maxPoints or remove selection if it was already selected
-      var image = document.getElementById('question_' + question + '_answer_' + answer);
-      if(image.classList.contains('selected')) {
-          image.classList.remove('selected');
-      } else if(selectedImages.length < maxPoints) {
-        image.classList.add('selected');
-      }
-
-      // count type points and update percentages
-      selectedImages = Array.from(document.getElementsByClassName('selected question_' + question));
-      var a = 0, b = 0, c = 0, d = 0;
-      selectedImages.forEach((item, i) => {
-          if(parseInt(item.dataset.typea) > 0) { a++; }
-          if(parseInt(item.dataset.typeb) > 0) { b++; }
-          if(parseInt(item.dataset.typec) > 0) { c++; }
-          if(parseInt(item.dataset.typed) > 0) { d++; }
-      });
-
-      updateQuestion(question, a, b, c, d);
   }
 
   function result() {

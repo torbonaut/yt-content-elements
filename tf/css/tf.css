@@ -2,6 +2,10 @@
   list-style: none;
 }
 
+#tf .image_answers {
+    margin-bottom: 15px;
+}
+
 #tf .image_answers img {
     cursor: pointer;
     border-radius: 5px;

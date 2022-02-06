@@ -12,8 +12,17 @@
                 $d = intval($answer->props['pointsD']);
                 $id = 'question_' . $props['key'] . '_answer_' . $key;
                 $name = 'question_' . $props['key'];
-
-                echo '<li><input type="radio" onclick="updateQuestion('.$props['key'].', '.$a.', '.$b.', '.$c.', '.$d.')" name="'.$name.'" id="'.$id.'" /><label for="'.$id.'">'.$text.'</label></li>';
+                ?>
+                <li>
+                    <input
+                        type="radio"
+                        onclick="updateTextQuestion(<?= $props['key'] ?>, <?= $a ?>, <?= $b ?>, <?= $c ?>, <?= $d ?>)"
+                        name="<?= $name ?>"
+                        id="<?= $id ?>"
+                    />
+                    <label for="<?= $id ?>"><?= $text ?></label>
+                </li>
+                <?php
               }
               echo '</ul>';
             } else {
@@ -35,7 +44,7 @@
             $points = intval($props['points']);
             echo '<p>';
             switch($points) {
-                case 0: echo 'Fehler. Frage hat keine Punkteanzahl vergeben.'; break;
+                case 0: echo 'Fehler: Frage hat keine Punkteanzahl vergeben.'; break;
                 case 1: echo 'Bitte wählen Sie genau 1 Bild aus.'; break;
                 default: echo 'Bitte wählen Sie genau ' . $points . ' Bilder aus.'; break;
             }
@@ -60,7 +69,7 @@
                         data-typed="<?= $d ?>"
                         data-maxpoints="<?= $props['points'] ?>"
                         class="<?= $name ?>"
-                        onclick="selectImage(<?= $props['key'] ?>, <?= $key ?>, <?= $props['points'] ?>)"
+                        onclick="updateImageQuestion(<?= $props['key'] ?>, <?= $key ?>, <?= $props['points'] ?>)"
                         id="<?= $id ?>"
                         src="<?= $answer->props['image'] ?>"
                         alt="<?= $props['title'] ?>"
@@ -71,7 +80,7 @@
             }
             echo '</div>';
           } else {
-            echo 'Keine Antwortmöglichkeiten vorhanden - Frage wurde nicht konfiguriert';
+            echo '<p>Keine Antwortmöglichkeiten vorhanden - Frage wurde nicht konfiguriert</p>';
           }
           ?>
           <a uk-toggle="target: #item-info-<?= $props['key'] ?>" uk-icon="question"></a>
