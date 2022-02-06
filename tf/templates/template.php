@@ -26,7 +26,7 @@
         <!-- tf questions -->
         <li>
             <div uk-grid>
-                <div class="uk-width-2-5">
+                <div class="uk-width-2-3">
                     <!-- tf questions intro -->
                     <h3><?= $props['introduction_questions_title'] ?></h3>
                     <div><?= $props['introduction_questions_text'] ?></div>
@@ -56,53 +56,62 @@
                 </div>
 
                 <!-- tf types -->
-                <div class="uk-width-3-5 uk-grid-divider uk-grid-column-small" uk-grid>
+                <div class="uk-width-1-3">
                     <!-- tf type a -->
-                    <div class="uk-card uk-width-1-<?= $props['types_count'] ?>">
+                    <div uk-sticky>
+                    <div class="uk-card uk-margin-small-bottom">
                         <div class="uk-card-media-top">
-                            <img src="<?= $props['type_a_image'] ?>" alt="<?= $props['type_a_title'] ?>">
+                            <div class="uk-inline">
+                                <img src="<?= $props['type_a_image'] ?>" alt="<?= $props['type_a_title'] ?>">
+                                <div class="uk-overlay uk-light uk-position-bottom">
+                                    <h5><?= $props['type_a_title'] ?> <a uk-toggle="target: #type-info-a" uk-icon="question"></a></h5>
+                                </div>
+                            </div>
                         </div>
-                        <div class="uk-card-body">
-                            <h5><?= $props['type_a_title'] ?> <a uk-toggle="target: #type-info-a" uk-icon="question"></a></h5>
-                            <div class="uk-card-badge uk-label"><span id="percentage_a">0</span>%</div>
-                        </div>
+                        <div class="uk-card-badge uk-label"><span id="percentage_a">0</span>%</div>
                     </div>
                     <!-- tf type b -->
-                    <div class="uk-card uk-width-1-<?= $props['types_count'] ?>">
+                    <div class="uk-card uk-margin-small-bottom">
                         <div class="uk-card-media-top">
-                            <img src="<?= $props['type_b_image'] ?>" alt="<?= $props['type_b_title'] ?>">
+                            <div class="uk-inline">
+                                <img src="<?= $props['type_b_image'] ?>" alt="<?= $props['type_b_title'] ?>">
+                                <div class="uk-overlay uk-light uk-position-bottom">
+                                    <h5><?= $props['type_b_title'] ?> <a uk-toggle="target: #type-info-b" uk-icon="question"></a></h5>
+                                </div>
+                            </div>
                         </div>
-                        <div class="uk-card-body">
-                            <h5><?= $props['type_b_title'] ?> <a uk-toggle="target: #type-info-b" uk-icon="question"></a></h5>
-                            <div class="uk-card-badge uk-label"><span id="percentage_b">0</span>%</div>
-                        </div>
+                        <div class="uk-card-badge uk-label"><span id="percentage_b">0</span>%</div>
                     </div>
 
                     <?php if($props['types_count'] > 2) { ?>
                     <!-- tf type c -->
-                    <div class="uk-card uk-width-1-<?= $props['types_count'] ?>">
+                    <div class="uk-card uk-margin-small-bottom">
                         <div class="uk-card-media-top">
-                            <img src="<?= $props['type_c_image'] ?>" alt="<?= $props['type_c_title'] ?>">
+                            <div class="uk-inline">
+                                <img src="<?= $props['type_c_image'] ?>" alt="<?= $props['type_c_title'] ?>">
+                                <div class="uk-overlay uk-light uk-position-bottom">
+                                    <h5><?= $props['type_c_title'] ?> <a uk-toggle="target: #type-info-c" uk-icon="question"></a></h5>
+                                </div>
+                            </div>
                         </div>
-                        <div class="uk-card-body">
-                            <h5><?= $props['type_c_title'] ?> <a uk-toggle="target: #type-info-c" uk-icon="question"></a></h5>
-                            <div class="uk-card-badge uk-label"><span id="percentage_c">0</span>%</div>
-                        </div>
+                        <div class="uk-card-badge uk-label"><span id="percentage_c">0</span>%</div>
                     </div>
                     <?php } ?>
 
                     <?php if($props['types_count'] > 3) { ?>
                     <!-- tf type d -->
-                    <div class="uk-card uk-width-1-<?= $props['types_count'] ?>">
+                    <div class="uk-card">
                         <div class="uk-card-media-top">
-                            <img src="<?= $props['type_d_image'] ?>" alt="<?= $props['type_d_title'] ?>">
+                            <div class="uk-inline">
+                                <img src="<?= $props['type_d_image'] ?>" alt="<?= $props['type_d_title'] ?>">
+                                <div class="uk-overlay uk-light uk-position-bottom">
+                                    <h5><?= $props['type_d_title'] ?> <a uk-toggle="target: #type-info-d" uk-icon="question"></a></h5>
+                                </div>
                         </div>
-                        <div class="uk-card-body">
-                            <h5><?= $props['type_d_title'] ?> <a uk-toggle="target: #type-info-d" uk-icon="question"></a></h5>
-                            <div class="uk-card-badge uk-label"><span id="percentage_d">0</span>%</div>
-                        </div>
+                        <div class="uk-card-badge uk-label"><span id="percentage_d">0</span>%</div>
                     </div>
                     <?php } ?>
+                    </div>
                 </div>
             </div>
         </li>
@@ -236,6 +245,30 @@
   function nextQuestion(i) {
       var element = document.getElementById('questions');
         UIkit.accordion(element).toggle(i+1, true);
+  }
+
+  function selectImage(question, answer, maxPoints) {
+      var selectedImages = Array.from(document.getElementsByClassName('selected question_' + question));
+
+      // select current clicked image if < maxPoints or remove selection if it was already selected
+      var image = document.getElementById('question_' + question + '_answer_' + answer);
+      if(image.classList.contains('selected')) {
+          image.classList.remove('selected');
+      } else if(selectedImages.length < maxPoints) {
+        image.classList.add('selected');
+      }
+
+      // count type points and update percentages
+      selectedImages = Array.from(document.getElementsByClassName('selected question_' + question));
+      var a = 0, b = 0, c = 0, d = 0;
+      selectedImages.forEach((item, i) => {
+          if(parseInt(item.dataset.typea) > 0) { a++; }
+          if(parseInt(item.dataset.typeb) > 0) { b++; }
+          if(parseInt(item.dataset.typec) > 0) { c++; }
+          if(parseInt(item.dataset.typed) > 0) { d++; }
+      });
+
+      updateQuestion(question, a, b, c, d);
   }
 
   function result() {

@@ -2,12 +2,25 @@
   list-style: none;
 }
 
-#tf ul.answers.images li {
-  margin: 10px;
+#tf .image_answers img {
+    cursor: pointer;
+    border-radius: 5px;
 }
 
-#tf ul.answers.images img {
-  width: 100%;
-  max-width: 800px;
-  height: auto;
+#tf .image_answers img.selected {
+    cursor: pointer;
+    filter: brightness(150%);
+    outline: 3px solid rgba(255,255,255,0.8);
+    outline-offset: -8px;
+}
+
+
+#tf .uk-card h5 {
+    font-size: 32px;
+}
+
+
+#tf .uk-card-badge.uk-label {
+    font-size: 24px;
+    height: 36px;
 }
